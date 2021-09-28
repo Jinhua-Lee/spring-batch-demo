@@ -1,0 +1,18 @@
+server:
+  port: 5200
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://172.17.6.103:5432/batch_test
+      username: postgres
+      password: postgres
+  batch:
+    jdbc:
+      initialize-schema: always
+
+task:
+  person:
+    cron: 0 43 * * * * ?
