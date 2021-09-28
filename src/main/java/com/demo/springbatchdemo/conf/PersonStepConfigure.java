@@ -39,12 +39,12 @@ public class PersonStepConfigure {
     @Bean
     public Step personStep(StepBuilderFactory stepBuilderFactory,
                            ItemReader<PersonEntity> multiResourceItemReader, ItemWriter<PersonEntity> personWriter,
-                           ItemProcessor<PersonEntity, PersonEntity> itemProcessor) {
+                           ItemProcessor<PersonEntity, PersonEntity> personProcessor) {
         return stepBuilderFactory.get("personStep")
                 .<PersonEntity, PersonEntity>chunk(2)
                 .reader(multiResourceItemReader)
                 .writer(personWriter)
-                .processor(itemProcessor)
+                .processor(personProcessor)
                 .build();
     }
 

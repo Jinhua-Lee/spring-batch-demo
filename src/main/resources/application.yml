@@ -12,7 +12,10 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      # 禁止启动时自动执行所有job
+      enabled: false
 
 task:
   person:
-    cron: 0 43 * * * * ?
+    cron: 0 0 *  * * ?

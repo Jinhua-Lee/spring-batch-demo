@@ -4,11 +4,15 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
+import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 【Person】转存单次任务
@@ -19,7 +23,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class PersonOneTimeTask {
+public class PersonScheduledTask {
 
     private JobLauncher jobLauncher;
     private Job personJob;
@@ -36,8 +40,12 @@ public class PersonOneTimeTask {
 
     @SneakyThrows
     @Scheduled(cron = "${task.person.cron}")
-    public void executeOneTime() {
-        JobExecution run = this.jobLauncher.run(this.personJob, new JobParameters());
+    public void execute() {
+        final int mapSize = 8;
+        Map<String, JobParameter> jobParameterMap = new HashMap<>(mapSize);
+//        jobParameterMap.put("demo", new JobParameter(2L, true));
+
+        JobExecution run = this.jobLauncher.run(this.personJob, new JobParameters(jobParameterMap));
         log.info("exitStatus = {}", run.getExitStatus());
     }
 }

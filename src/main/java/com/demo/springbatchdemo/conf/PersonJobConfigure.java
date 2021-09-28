@@ -20,10 +20,10 @@ import org.springframework.context.annotation.Configuration;
 public class PersonJobConfigure {
 
     @Bean
-    public Job personJob(JobBuilderFactory jobBuilderFactory, Step step) {
+    public Job personJob(JobBuilderFactory jobBuilderFactory, Step personStep) {
         return jobBuilderFactory.get("personJob")
                 .incrementer(new RunIdIncrementer())
-                .flow(step)
+                .flow(personStep)
                 .end()
                 .build();
     }
