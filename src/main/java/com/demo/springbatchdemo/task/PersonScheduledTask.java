@@ -25,8 +25,8 @@ import java.util.Map;
 @Component
 public class PersonScheduledTask {
 
-    private JobLauncher jobLauncher;
-    private Job personJob;
+    protected JobLauncher jobLauncher;
+    protected Job personJob;
 
     @Autowired
     public void setJobLauncher(JobLauncher jobLauncher) {
