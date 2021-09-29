@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Slf4j
 @SpringBootTest
-public class PersonScheduledTaskTest extends PersonScheduledTask {
+public class ManualPersonTaskTest extends AbstractPersonTask {
 
     @Test
     @SneakyThrows
