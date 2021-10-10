@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://192.168.101.30:5432/batch_test
+      username: postgres
+      password: cafebabe
+task:
+  person:
+    cron: 0 47 *  * * ?
