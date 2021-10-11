@@ -49,7 +49,7 @@ public class PersonStepConfigure {
     }
 
     @Bean
-    public MultiResourceItemReader<PersonEntity> multiResourceItemReader(FlatFileItemReader<PersonEntity> personReader) {
+    public ItemReader<PersonEntity> multiResourceItemReader(FlatFileItemReader<PersonEntity> personReader) {
         MultiResourceItemReader<PersonEntity> multiPersonReader = new MultiResourceItemReader<>();
         multiPersonReader.setResources(this.personResources);
         multiPersonReader.setDelegate(personReader);
