@@ -1,18 +1,20 @@
 package com.demo.springbatchdemo.domain.entity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.Data;
-import lombok.SneakyThrows;
+import lombok.*;
 
 /**
- * 【人物】实体类
+ * 【小写的人物】实体类
  *
  * @author Jinhua
  * @version 1.0
- * @date 2021/9/27 17:19
+ * @date 2021/10/14 10:56
  */
 @Data
-public class PersonEntity {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class LowerCasePersonEntity {
 
     private Long id;
 
@@ -25,4 +27,5 @@ public class PersonEntity {
     public String toString() {
         return new ObjectMapper().writeValueAsString(this);
     }
+
 }

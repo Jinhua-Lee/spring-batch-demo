@@ -17,6 +17,7 @@ public abstract class AbstractPersonTask {
 
     protected JobLauncher jobLauncher;
     protected Job personJob;
+    protected Job person2Job;
 
     @Autowired
     public void setJobLauncher(JobLauncher jobLauncher) {
@@ -26,5 +27,10 @@ public abstract class AbstractPersonTask {
     @Autowired
     public void setPersonJob(Job personJob) {
         this.personJob = personJob;
+    }
+
+    @Autowired
+    public void setPerson2Job(Job person2Job) {
+        this.person2Job = person2Job;
     }
 }

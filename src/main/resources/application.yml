@@ -15,8 +15,8 @@ spring:
     job:
       # 禁止启动时自动执行所有job
       enabled: false
-  profiles:
-    active: home
+#  profiles:
+#    active: home
 
 task:
   person:

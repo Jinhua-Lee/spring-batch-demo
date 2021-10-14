@@ -35,4 +35,11 @@ public class ManualPersonTaskTest extends AbstractPersonTask {
         JobExecution run = super.jobLauncher.run(this.personJob, new JobParameters(jobParameterMap));
         log.info("exitStatus = {}", run.getExitStatus());
     }
+
+    @Test
+    @SneakyThrows
+    public void testToLowerCase() {
+        JobExecution run = super.jobLauncher.run(this.person2Job, new JobParameters());
+        log.info("exitStatus = {}", run.getExitStatus());
+    }
 }
