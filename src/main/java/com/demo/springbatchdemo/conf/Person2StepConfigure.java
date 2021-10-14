@@ -4,8 +4,6 @@ import com.demo.springbatchdemo.domain.entity.LowerCasePersonEntity;
 import com.demo.springbatchdemo.domain.entity.PersonEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.batch.MyBatisBatchItemWriter;
-import org.mybatis.spring.batch.MyBatisPagingItemReader;
 import org.mybatis.spring.batch.builder.MyBatisBatchItemWriterBuilder;
 import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
 import org.springframework.batch.core.Step;
@@ -44,7 +42,7 @@ public class Person2StepConfigure {
     }
 
     @Bean
-    public MyBatisPagingItemReader<PersonEntity> personPagingItemReader(
+    public ItemReader<PersonEntity> personPagingItemReader(
             SqlSessionFactory customizedMapperLocationSqlSessionFactory) {
         Map<String, Object> paramsMap = new HashMap<>(8);
         paramsMap.put("_pagesize", 2);
@@ -65,11 +63,11 @@ public class Person2StepConfigure {
     }
 
     @Bean
-    public MyBatisBatchItemWriter<LowerCasePersonEntity> lowerCasePersonBatchIemWriter(
+    public ItemWriter<LowerCasePersonEntity> lowerCasePersonBatchIemWriter(
             SqlSessionFactory customizedMapperLocationSqlSessionFactory) {
         return new MyBatisBatchItemWriterBuilder<LowerCasePersonEntity>()
                 .sqlSessionFactory(customizedMapperLocationSqlSessionFactory)
-                // 注意，这里的构造是单条插入
+                // 注意，这里的构造是单条插入，chunk机制会使得它达到数量后再批量插入
                 .statementId("com.demo.springbatchdemo.repository.mapper.LowerCasePersonMapper.batchInsert")
                 .build();
     }
