@@ -1,24 +1,33 @@
-package com.demo.springbatchdemo.conf;
+package com.demo.springbatchdemo.conf.job;
 
 import com.demo.springbatchdemo.domain.entity.LowerCasePersonEntity;
 import com.demo.springbatchdemo.domain.entity.PersonEntity;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.batch.builder.MyBatisBatchItemWriterBuilder;
 import org.mybatis.spring.batch.builder.MyBatisPagingItemReaderBuilder;
+import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
+import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 【Person2】步骤的配置
+ * 【Person2】Job的功能：<p>&emsp;
+ * 1) 从person表读数据，简单处理，写到另一个lower_case_person表<p>&emsp;
+ * 2) 读写功能利用mybatis-spring中的支持完成
  *
  * @author Jinhua
  * @version 1.0
@@ -26,7 +35,27 @@ import java.util.Map;
  */
 @Slf4j
 @Configuration
-public class Person2StepConfigure {
+@MapperScan(basePackages = {"com.demo.springbatchdemo.repository.mapper"},
+        sqlSessionFactoryRef = "customizedMapperLocationSqlSessionFactory")
+public class Person2JobConfigure {
+
+    @Bean
+    @SneakyThrows
+    public SqlSessionFactory customizedMapperLocationSqlSessionFactory(DataSource dataSource) {
+        final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
+                .getResources("classpath*:/mapper/*.xml"));
+        return sessionFactory.getObject();
+    }
+
+    @Bean
+    public Job person2Job(JobBuilderFactory jobBuilderFactory, Step person2Step) {
+        return jobBuilderFactory.get("person2Job")
+                .flow(person2Step)
+                .end()
+                .build();
+    }
 
     @Bean
     public Step person2Step(StepBuilderFactory stepBuilderFactory,
@@ -71,4 +100,5 @@ public class Person2StepConfigure {
                 .statementId("com.demo.springbatchdemo.repository.mapper.LowerCasePersonMapper.batchInsert")
                 .build();
     }
+
 }

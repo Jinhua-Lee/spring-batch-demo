@@ -9,8 +9,8 @@
             parameterType="com.demo.springbatchdemo.domain.entity.LowerCasePersonEntity">
         insert into lower_case_person(first_name, last_name)
         values
-            (
-                #{firstName}, #{lastName}
-            )
+        (
+        #{firstName}, #{lastName}
+        )
     </insert>
 </mapper>

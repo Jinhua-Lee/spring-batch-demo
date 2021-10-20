@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public abstract class DynamicDeciderTask {
+public abstract class AbstractDynamicDeciderTask {
 
     protected JobLauncher jobLauncher;
     protected Job dynamicDeciderJob;

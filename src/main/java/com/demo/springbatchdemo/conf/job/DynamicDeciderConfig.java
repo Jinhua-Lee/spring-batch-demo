@@ -1,10 +1,11 @@
-package com.demo.springbatchdemo.conf;
+package com.demo.springbatchdemo.conf.job;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.flow.JobExecutionDecider;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,14 +41,13 @@ public class DynamicDeciderConfig {
                 .tasklet((contribution, chunkContext) -> {
                     log.info("dStep1...");
                     int c = new Random().nextInt(2);
-                    if(c == 1) {
+                    if (c == 1) {
                         return RepeatStatus.FINISHED;
                     } else {
                         throw new RuntimeException("dStep1 failed");
                     }
                 }).build();
     }
-
 
     @Bean
     public Step dStep2(StepBuilderFactory stepBuilderFactory) {
@@ -65,5 +65,16 @@ public class DynamicDeciderConfig {
                     log.info("dStep3...");
                     return RepeatStatus.FINISHED;
                 }).build();
+    }
+
+    @Bean
+    public Job dynamicDeciderJob2(JobBuilderFactory jobBuilderFactory,
+                                  Step dStep1, Step dStep2, Step dStep3,
+                                  JobExecutionDecider tripleDecider) {
+        return jobBuilderFactory.get("dynamicDeciderJob2")
+//                .flow(dStep1).build().build()
+                .start(dStep1)
+                .start(tripleDecider)
+                .end().build();
     }
 }

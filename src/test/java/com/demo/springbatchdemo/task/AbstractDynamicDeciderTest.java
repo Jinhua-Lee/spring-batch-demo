@@ -19,12 +19,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class DynamicDeciderTest extends DynamicDeciderTask {
+public class AbstractDynamicDeciderTest extends AbstractDynamicDeciderTask {
 
     @Test
     @SneakyThrows
     public void testSimple() {
         JobExecution run = jobLauncher.run(this.dynamicDeciderJob, new JobParameters());
         log.info("exitStatus = {}", run.getExitStatus());
+    }
+
+    @Test
+    @SneakyThrows
+    public void testDynamicDecider() {
+
     }
 }

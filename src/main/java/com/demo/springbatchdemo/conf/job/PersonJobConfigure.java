@@ -1,10 +1,13 @@
-package com.demo.springbatchdemo.conf;
+package com.demo.springbatchdemo.conf.job;
 
 import com.demo.springbatchdemo.domain.entity.PersonEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
@@ -23,18 +26,27 @@ import org.springframework.core.io.Resource;
 import javax.sql.DataSource;
 
 /**
- * 【Person】步骤配置
+ * 【Person】任务配置
  *
  * @author Jinhua
  * @version 1.0
- * @date 2021/9/27 19:21
+ * @date 2021/9/27 17:14
  */
 @Slf4j
 @Configuration
-public class PersonStepConfigure {
+public class PersonJobConfigure {
 
     @Value(value = "classpath*:csv/inputPerson*.csv")
     private Resource[] personResources;
+
+    @Bean
+    public Job personJob(JobBuilderFactory jobBuilderFactory, Step personStep) {
+        return jobBuilderFactory.get("personJob")
+                .incrementer(new RunIdIncrementer())
+                .flow(personStep)
+                .end()
+                .build();
+    }
 
     @Bean
     public Step personStep(StepBuilderFactory stepBuilderFactory,
@@ -101,4 +113,5 @@ public class PersonStepConfigure {
         personJdbcWriter.setSql(insert);
         return personJdbcWriter;
     }
+
 }
