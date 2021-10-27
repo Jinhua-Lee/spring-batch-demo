@@ -7,5 +7,5 @@ spring:
       username: postgres
       password: cafebabe
 task:
-  person:
-    cron: 0 47 *  * * ?
+  cron:
+    person: 0 0 *  * * ?

@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Todo
+ * 【ExecutionContext传递变量】测试任务
  *
  * @author Jinhua-Lee
  * @version 1.0
@@ -23,14 +23,14 @@ import java.util.Map;
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class LateBindingTaskTest extends AbstractLateBindingTask {
+public class ExecutionPassVariablesTaskTest extends AbstractExecutionPassVariablesTask {
 
     @Test
     @SneakyThrows
     public void execute() {
         Map<String, JobParameter> jobParameterMap = new HashMap<>();
-        jobParameterMap.put("time", new JobParameter(1L, true));
-        JobExecution run = super.jobLauncher.run(lateBindingJob, new JobParameters(jobParameterMap));
+        jobParameterMap.put("time", new JobParameter(1L, false));
+        JobExecution run = super.jobLauncher.run(executionPassVariablesJob, new JobParameters(jobParameterMap));
         log.info("exitStatus = {}", run.getExitStatus());
     }
 }

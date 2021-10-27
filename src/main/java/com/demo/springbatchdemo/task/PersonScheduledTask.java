@@ -23,7 +23,7 @@ import java.util.Map;
 public class PersonScheduledTask extends AbstractPersonTask {
 
     @SneakyThrows
-    @Scheduled(cron = "${task.person.cron}")
+    @Scheduled(cron = "${task.cron.person}")
     public void execute() {
         final int mapSize = 8;
         Map<String, JobParameter> jobParameterMap = new HashMap<>(mapSize);

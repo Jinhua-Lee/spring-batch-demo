@@ -15,9 +15,11 @@ spring:
     job:
       # 禁止启动时自动执行所有job
       enabled: false
-  profiles:
-    active: home
+  main:
+    allow-bean-definition-overriding: true
+#  profiles:
+#    active: home
 
 task:
-  person:
-    cron: 0 0 *  * * ?
+  cron:
+    person: 0 0 *  * * ?

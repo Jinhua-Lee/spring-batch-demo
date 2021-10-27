@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * 【动态绑定】
+ * 【ExecutionContext传递变量】
  *
  * @author Jinhua-Lee
  * @version 1.0
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public abstract class AbstractLateBindingTask {
+public abstract class AbstractExecutionPassVariablesTask {
 
     protected JobLauncher jobLauncher;
-    protected Job lateBindingJob;
+    protected Job executionPassVariablesJob;
 
     @Autowired
     public void setJobLauncher(JobLauncher jobLauncher) {
@@ -26,7 +26,7 @@ public abstract class AbstractLateBindingTask {
     }
 
     @Autowired
-    public void setLateBindingJob(Job lateBindingJob) {
-        this.lateBindingJob = lateBindingJob;
+    public void setLateBindingJob(Job executionPassVariablesJob) {
+        this.executionPassVariablesJob = executionPassVariablesJob;
     }
 }
