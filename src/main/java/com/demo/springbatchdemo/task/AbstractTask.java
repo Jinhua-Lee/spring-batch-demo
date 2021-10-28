@@ -9,15 +9,18 @@ import org.springframework.stereotype.Component;
 /**
  * @author Jinhua
  * @version 1.0
- * @date 2021/9/29 9:40
+ * @date 2021/10/28 15:57
  */
 @Slf4j
 @Component
-public abstract class AbstractPersonTask {
+public abstract class AbstractTask {
 
     protected JobLauncher jobLauncher;
     protected Job personJob;
     protected Job person2Job;
+    protected Job dynamicDeciderJob;
+    protected Job executionPassVariablesJob;
+    protected Job lateBindingJob;
 
     @Autowired
     public void setJobLauncher(JobLauncher jobLauncher) {
@@ -32,5 +35,20 @@ public abstract class AbstractPersonTask {
     @Autowired
     public void setPerson2Job(Job person2Job) {
         this.person2Job = person2Job;
+    }
+
+    @Autowired
+    public void setDynamicDeciderJob(Job dynamicDeciderJob) {
+        this.dynamicDeciderJob = dynamicDeciderJob;
+    }
+
+    @Autowired
+    public void setExecutionPassVariablesJob(Job executionPassVariablesJob) {
+        this.executionPassVariablesJob = executionPassVariablesJob;
+    }
+
+    @Autowired
+    public void setLateBindingJob(Job lateBindingJob) {
+        this.lateBindingJob = lateBindingJob;
     }
 }

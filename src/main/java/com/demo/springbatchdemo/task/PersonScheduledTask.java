@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @Slf4j
 @Component
-public class PersonScheduledTask extends AbstractPersonTask {
+public class PersonScheduledTask extends AbstractTask {
 
     @SneakyThrows
     @Scheduled(cron = "${task.cron.person}")

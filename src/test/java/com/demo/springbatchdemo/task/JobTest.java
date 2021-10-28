@@ -14,20 +14,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 任务启动单元测试类
- *
  * @author Jinhua
  * @version 1.0
- * @date 2021/9/28 18:13
+ * @date 2021/10/28 16:26
  */
 @Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ManualPersonTaskTest extends AbstractPersonTask {
+public class JobTest extends AbstractTask {
 
     @Test
     @SneakyThrows
-    public void testManualExec() {
+    public void testPersonTask() {
         final int mapSize = 8;
         Map<String, JobParameter> jobParameterMap = new HashMap<>(mapSize);
 //        jobParameterMap.put("demo", new JobParameter(2L, true));
@@ -38,8 +36,33 @@ public class ManualPersonTaskTest extends AbstractPersonTask {
 
     @Test
     @SneakyThrows
-    public void testToLowerCase() {
+    public void testPersonTask2() {
         JobExecution run = super.jobLauncher.run(this.person2Job, new JobParameters());
+        log.info("exitStatus = {}", run.getExitStatus());
+    }
+
+    @Test
+    @SneakyThrows
+    public void testDynamicDecider() {
+        JobExecution run = jobLauncher.run(this.dynamicDeciderJob, new JobParameters());
+        log.info("exitStatus = {}", run.getExitStatus());
+    }
+
+    @Test
+    @SneakyThrows
+    public void testExecutionPassVariables() {
+        Map<String, JobParameter> jobParameterMap = new HashMap<>();
+        jobParameterMap.put("time", new JobParameter(1L, false));
+        JobExecution run = super.jobLauncher.run(executionPassVariablesJob, new JobParameters(jobParameterMap));
+        log.info("exitStatus = {}", run.getExitStatus());
+    }
+
+    @Test
+    @SneakyThrows
+    public void testLateBinding() {
+        Map<String, JobParameter> jobParameterMap = new HashMap<>();
+        jobParameterMap.put("time", new JobParameter(1L, false));
+        JobExecution run = super.jobLauncher.run(lateBindingJob, new JobParameters(jobParameterMap));
         log.info("exitStatus = {}", run.getExitStatus());
     }
 }
