@@ -21,6 +21,7 @@ public abstract class AbstractTask {
     protected Job dynamicDeciderJob;
     protected Job executionPassVariablesJob;
     protected Job lateBindingJob;
+    protected Job jobStepJob;
 
     @Autowired
     public void setJobLauncher(JobLauncher jobLauncher) {
@@ -50,5 +51,10 @@ public abstract class AbstractTask {
     @Autowired
     public void setLateBindingJob(Job lateBindingJob) {
         this.lateBindingJob = lateBindingJob;
+    }
+
+    @Autowired
+    public void setJobStepJob(Job jobStepJob) {
+        this.jobStepJob = jobStepJob;
     }
 }

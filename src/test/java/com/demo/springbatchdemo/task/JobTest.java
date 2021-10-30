@@ -65,4 +65,14 @@ public class JobTest extends AbstractTask {
         JobExecution run = super.jobLauncher.run(lateBindingJob, new JobParameters(jobParameterMap));
         log.info("exitStatus = {}", run.getExitStatus());
     }
+
+    @Test
+    @SneakyThrows
+    public void testJobStep() {
+        Map<String, JobParameter> jobParameterMap = new HashMap<>();
+        // 该参数将传递给子Job
+        jobParameterMap.put("time", new JobParameter(1L, false));
+        JobExecution run = super.jobLauncher.run(jobStepJob, new JobParameters(jobParameterMap));
+        log.info("exitStatus = {}", run.getExitStatus());
+    }
 }
