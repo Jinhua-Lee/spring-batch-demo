@@ -50,6 +50,13 @@ public class JobTest extends AbstractTask {
 
     @Test
     @SneakyThrows
+    public void testRandomDeciderFlowJob() {
+        JobExecution run = jobLauncher.run(this.randomDeciderJob, new JobParameters());
+        log.info("exitStatus = {}", run.getExitStatus());
+    }
+
+    @Test
+    @SneakyThrows
     public void testExecutionPassVariables() {
         Map<String, JobParameter> jobParameterMap = new HashMap<>();
         jobParameterMap.put("time", new JobParameter(1L, false));

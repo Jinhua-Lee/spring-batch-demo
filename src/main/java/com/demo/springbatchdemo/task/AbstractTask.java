@@ -19,6 +19,7 @@ public abstract class AbstractTask {
     protected Job personJob;
     protected Job person2Job;
     protected Job dynamicDeciderJob;
+    protected Job randomDeciderJob;
     protected Job executionPassVariablesJob;
     protected Job lateBindingJob;
     protected Job jobStepJob;
@@ -41,6 +42,11 @@ public abstract class AbstractTask {
     @Autowired
     public void setDynamicDeciderJob(Job dynamicDeciderJob) {
         this.dynamicDeciderJob = dynamicDeciderJob;
+    }
+
+    @Autowired
+    public void setFlowJob(Job randomDeciderJob) {
+        this.randomDeciderJob = randomDeciderJob;
     }
 
     @Autowired

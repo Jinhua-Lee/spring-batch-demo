@@ -70,11 +70,11 @@ public class DynamicDeciderConfig {
     @Bean
     public Job dynamicDeciderJob2(JobBuilderFactory jobBuilderFactory,
                                   Step dStep1, Step dStep2, Step dStep3,
-                                  JobExecutionDecider tripleDecider) {
+                                  JobExecutionDecider tripleRandomDecider) {
         return jobBuilderFactory.get("dynamicDeciderJob2")
 //                .flow(dStep1).build().build()
                 .start(dStep1)
-                .start(tripleDecider)
+                .start(tripleRandomDecider)
                 .end().build();
     }
 }
